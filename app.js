@@ -8,7 +8,7 @@ const app = express();
 
 app.use(express.json());
 
-// app.use("/", crudOpration);
+app.use("/", crudOpration);
 app.use(function error500(error, req, res, next) {
   res.status(error.status || 500);
   res.json({

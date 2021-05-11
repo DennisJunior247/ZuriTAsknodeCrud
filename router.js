@@ -38,6 +38,22 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.delete("/", async (req, res) => {
+  try {
+    await Crud.deleteMany();
+
+    res.status(201).json({
+      status: "sucessful",
+      data: null,
+    });
+  } catch (error) {
+    res.status(error.status).json({
+      status: "Unsucessful",
+      error,
+    });
+  }
+});
+
 router.get("/id", async (req, res) => {
   try {
     const id = req.params.id;
@@ -62,14 +78,11 @@ router.get("/id", async (req, res) => {
 
 router.patch("/id", async (req, res) => {
   try {
-    const { email, name, country } = req.body;
-
-    if (!email || !name || !country)
-      res.status(400).send("body must not be empty");
-
     const data = await Crud.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
+
+    if (!data) res.status(400).send("invalid id");
 
     res.status(201).json({
       status: "sucessful",
@@ -85,7 +98,8 @@ router.patch("/id", async (req, res) => {
 
 router.delete("/id", async (req, res) => {
   try {
-    const data = await Crud.findByIdAndDelete(req.params.id);
+    const id = await Crud.findByIdAndDelete(req.params.id);
+    if (!id) res.status(400).send("invalid id");
 
     res.status(201).json({
       status: "sucessful",
@@ -98,3 +112,5 @@ router.delete("/id", async (req, res) => {
     });
   }
 });
+
+module.exports = router;
