@@ -1,5 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+//connecting .env
+dotenv.config({ path: "./config.env" });
 
 // importing app modlues
 const crudOpration = require("./router");
@@ -37,6 +40,9 @@ mongoose
   .catch((err) => console.error(err));
 
 // listing to server
-const port = process.env.PORT || 3000;
+const port =
+  process.env.NODE_ENV === "development"
+    ? 3000
+    : "https://zuritask-node-crud.herokuapp.com/";
 
 app.listen(port, () => console.log(`listening ${port}`));
