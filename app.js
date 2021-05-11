@@ -27,8 +27,7 @@ app.use(function error500(error, req, res, next) {
 });
 
 // connecting to mongo db
-const db =
-  "mongodb+srv://dennis:08051206966d@cluster0.eof3h.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const db = process.env.DB;
 
 mongoose
   .connect(db, {
@@ -40,9 +39,6 @@ mongoose
   .catch((err) => console.error(err));
 
 // listing to server
-const port =
-  process.env.NODE_ENV === "development"
-    ? 3000
-    : "https://zuritask-node-crud.herokuapp.com/";
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => console.log(`listening ${port}`));
