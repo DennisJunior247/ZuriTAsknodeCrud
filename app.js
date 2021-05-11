@@ -9,6 +9,11 @@ const app = express();
 app.use(express.json());
 
 app.use("/", crudOpration);
+app.all("*", (req, res, next) => {
+  next(
+    new res.status(404).send(`Can't find ${req.originalUrl} on this server!`)
+  );
+});
 app.use(function error500(error, req, res, next) {
   res.status(error.status || 500);
   res.json({

@@ -58,8 +58,6 @@ router.get("/id", async (req, res) => {
   try {
     const id = req.params.id;
 
-    if (!id) res.status(400).send("id is requried ");
-
     const data = await Crud.findById(id);
 
     if (!data) res.status(400).send("invalid id");
