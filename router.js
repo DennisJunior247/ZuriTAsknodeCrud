@@ -76,16 +76,14 @@ router.get("/:id", async (req, res) => {
 });
 
 router.patch("/:id", async (req, res) => {
-  console.log(req.params.id);
-
   try {
     const data = await Crud.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
 
-    // if (!data) res.status(400).send("invalid id");
+    if (!data) res.status(400).send("invalid id");
 
-    res.status(201).json({
+    res.status(200).json({
       status: "sucessful",
       data,
     });
