@@ -5,6 +5,7 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   try {
     const data = await Crud.find();
+
     res.status(200).json({
       status: "sucessful",
       data,
@@ -54,11 +55,11 @@ router.delete("/", async (req, res) => {
   }
 });
 
-router.get("/id", async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
-    const id = req.params.id;
+    // const id = req.params.id;
 
-    const data = await Crud.findById(id);
+    const data = await Crud.findById(req.params.id);
 
     if (!data) res.status(400).send("invalid id");
 
@@ -74,7 +75,7 @@ router.get("/id", async (req, res) => {
   }
 });
 
-router.patch("/id", async (req, res) => {
+router.patch("/:id", async (req, res) => {
   try {
     const data = await Crud.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -82,7 +83,7 @@ router.patch("/id", async (req, res) => {
 
     if (!data) res.status(400).send("invalid id");
 
-    res.status(201).json({
+    res.status(200).json({
       status: "sucessful",
       data,
     });
@@ -94,7 +95,7 @@ router.patch("/id", async (req, res) => {
   }
 });
 
-router.delete("/id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
     const id = await Crud.findByIdAndDelete(req.params.id);
     if (!id) res.status(400).send("invalid id");

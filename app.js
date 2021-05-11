@@ -1,5 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+//connecting .env
+dotenv.config({ path: "./config.env" });
 
 // importing app modlues
 const crudOpration = require("./router");
@@ -24,8 +27,7 @@ app.use(function error500(error, req, res, next) {
 });
 
 // connecting to mongo db
-const db =
-  "mongodb+srv://dennis:08051206966d@cluster0.eof3h.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const db = process.env.DB;
 
 mongoose
   .connect(db, {
