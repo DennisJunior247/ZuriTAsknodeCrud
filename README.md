@@ -9,3 +9,5 @@
 * Delete route - This route deletes all the data in the collection
 * Delete route with given id  - this route deletes the data with the specifed id 
 
+# API URL
+https://zuritask-node-crud.herokuapp.com/
