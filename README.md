@@ -8,7 +8,7 @@
 * Run npm install to install all dependencies
 * database is hosed on atlas
 ## Usage
-* Run npm nodemon on the terminal to start the application.
+* Run npm start or nodemon app.js on the terminal to start the application.
 * Hit the endpoint on postman
 
 ### API Endpoints
