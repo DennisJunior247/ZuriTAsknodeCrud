@@ -43,7 +43,7 @@ router.delete("/", async (req, res) => {
   try {
     await Crud.deleteMany();
 
-    res.status(201).json({
+    res.status(204).json({
       status: "sucessful",
       data: null,
     });
@@ -75,17 +75,34 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.patch("/:id", async (req, res) => {
+// router.patch("/:id", async (req, res) => {
+//   try {
+//     const data = await Crud.findByIdAndUpdate(req.params.id, req.body, {
+//       new: true,
+//     });
+
+//     if (!data) res.status(400).send("invalid id");
+
+//     res.status(200).json({
+//       status: "sucessful",
+//       data,
+//     });
+//   } catch (error) {
+//     res.status(error.status).json({
+//       status: "Unsucessful",
+//       error,
+//     });
+//   }
+// });
+
+router.delete("/:id", async (req, res) => {
   try {
-    const data = await Crud.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
+    const id = await Crud.findByIdAndDelete(req.params.id);
+    if (!id) res.status(400).send("invalid id");
 
-    if (!data) res.status(400).send("invalid id");
-
-    res.status(200).json({
+    res.status(204).json({
       status: "sucessful",
-      data,
+      data: null,
     });
   } catch (error) {
     res.status(error.status).json({
@@ -95,14 +112,17 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.patch("/:id", async (req, res) => {
   try {
-    const id = await Crud.findByIdAndDelete(req.params.id);
-    if (!id) res.status(400).send("invalid id");
+    const data = await Crud.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+
+    if (!data) res.status(400).send("invalid id");
 
     res.status(201).json({
       status: "sucessful",
-      data: null,
+      data,
     });
   } catch (error) {
     res.status(error.status).json({
