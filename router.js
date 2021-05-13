@@ -47,9 +47,8 @@ router.patch("/:id", async (req, res) => {
       new: true,
     });
 
-    if (!doc) {
-      return next(new AppError("No document found with that ID", 404));
-    }
+    if (!doc) res.status(400).send("invalid id");
+
 
     res.status(200).json({
       status: "success",
