@@ -2,11 +2,9 @@ const express = require("express");
 const Crud = require("./model");
 const router = express.Router();
 
-
-
 router.post("/", async (req, res) => {
   try {
-    const doc = await Model.create(req.body);
+    const doc = await Crud.create(req.body);
 
     res.status(201).json({
       status: "success",
@@ -21,7 +19,6 @@ router.post("/", async (req, res) => {
     });
   }
 });
-
 
 router.get("/:id", async (req, res) => {
   try {
@@ -48,7 +45,6 @@ router.patch("/:id", async (req, res) => {
     });
 
     if (!doc) res.status(400).send("invalid id");
-
 
     res.status(200).json({
       status: "success",
